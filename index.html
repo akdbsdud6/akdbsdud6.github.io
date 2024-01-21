@@ -6,6 +6,10 @@
     <title>Parking Map</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
 </head>
 <body>
 
@@ -15,7 +19,7 @@
 
 <!-- The background -->
 <div class="bg">
-    <button id="stevensonButton">Stevenson College</button>
+    <i class="fa-solid fa-location-dot" id="stevensonButton"></i>
     
     <div id="dropdownMenu" class="dropdown-content">
             <p>Parking lot 115 - <span id="availableSpots">20</span> spots available</p>
@@ -52,12 +56,23 @@ document.getElementById('reportButton').addEventListener('click', function() {
 
 // Function to update display
 function updateDisplay(spots) {
+    var icon = document.getElementById('stevensonButton');
     document.getElementById('availableSpots').innerText = spots + ' spots available';
+
+    if (spots == 0) {
+        icon.style.color = 'red'; // No spots available
+    } else if (spots >= 1 && spots <= 2) {
+        icon.style.color = '#DAA520'; // Darker yellow for few spots available
+    } else {
+        icon.style.color = 'green'; // Several spots available
+    }
 }
+
+
 
 // Function to fetch parking data
 function fetchParkingData(parkingLot) {
-    fetch(`/get_parking_data/${parkingLot}`)
+    fetch(`http://127.0.0.1:5000/get_parking_data/${parkingLot}`)
         .then(response => response.json())
         .then(data => {
             updateDisplay(data.spots_available);
@@ -67,7 +82,7 @@ function fetchParkingData(parkingLot) {
 
 // Function to report new spot count
 function reportParking(parkingLot, spots) {
-    fetch('/report', {
+    fetch('http://127.0.0.1:5000/report', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
