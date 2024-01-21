@@ -18,18 +18,85 @@
     <button id="stevensonButton">Stevenson College</button>
     
     <div id="dropdownMenu" class="dropdown-content">
-        <p>Parking lot 115 - <span id="availableSpots">20</span> spots available</p>
+            <p>Parking lot 115 - <span id="availableSpots">20</span> spots available</p>
         <button id="reportButton">Report</button>
+        <select id="spotSelector" style="display: none;">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        
     </div>
 </div>
 
 
 <script>
-    // JavaScript for dropdown toggle
-    document.getElementById("stevensonButton").onclick = function() {
-        var dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    };
+// JavaScript for dropdown toggle
+document.getElementById("stevensonButton").onclick = function() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+};
+
+document.getElementById('reportButton').addEventListener('click', function() {
+    var selector = document.getElementById('spotSelector');
+    selector.style.display = selector.style.display === 'none' ? 'block' : 'none';
+});
+
+// Function to update display
+function updateDisplay(spots) {
+    document.getElementById('availableSpots').innerText = spots + ' spots available';
+}
+
+// Function to fetch parking data
+function fetchParkingData(parkingLot) {
+    fetch(`/get_parking_data/${parkingLot}`)
+        .then(response => response.json())
+        .then(data => {
+            updateDisplay(data.spots_available);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Function to report new spot count
+function reportParking(parkingLot, spots) {
+    fetch('/report', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ parking_lot: parkingLot, spots: spots }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            fetchParkingData(parkingLot); // Refresh parking data
+        } else {
+            console.error('Report Failed');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Event listener for spot selection
+document.getElementById('spotSelector').addEventListener('change', function() {
+    var parkingLot = 'Stevenson';  // Replace with the actual parking lot name
+    var spots = parseInt(this.value);
+    reportParking(parkingLot, spots);
+});
+
+// Fetch data on page load
+window.onload = function() {
+    fetchParkingData('Stevenson'); // Replace 'Stevenson' with the actual parking lot ID
+};
+
 </script>
 
 </body>

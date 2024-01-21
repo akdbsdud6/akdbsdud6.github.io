@@ -94,3 +94,14 @@ h1 {
     top: 263px; /* Adjust this value */
     left: 880px; /* Adjust this value */
 }
+
+#spotSelector {
+    /* Example styles */
+    font-size: 16px;
+    color: #333;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+}
+
+
