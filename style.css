@@ -1,0 +1,96 @@
+/* Set up the body with no margin and hidden overflow */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Hide scrollbars */
+  height: 100%; /* Full height */
+}
+
+/* The background image */
+.bg {
+  /* The image used */
+  background-image: url('Images/parking_map.png');
+  
+  /* Full height */
+  height: 100%;
+  
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+/*----------------Header---------------*/
+
+header {
+    background-color: #003C6C; /* Deep blue */
+    color: #FDC700; /* Vivid yellow */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures the header stays on top */
+    font-family: 'Roboto', sans-serif; /* Optional if you've already applied it to the body */
+
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Adjust the .bg class to account for the header */
+.bg {
+    margin-top: 50px; /* Adjust this value based on your header's height */
+    /* Other styles... */
+}
+
+/*----------------Header---------------*/
+
+/* Button Styles */
+#stevensonButton {
+    position: absolute; /* Position the button over the map */
+    top: 31.6%; /* Adjust this value based on the button's location on the map */
+    left: 60.3%; /* Adjust this value based on the button's location on the map */
+    padding: 10px 20px;
+    background-color: #FDC700; /* Example button color */
+    color: #003C6C; /* Example text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10; /* Ensure the button is above the map */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-content {
+    display: none; /* Hide dropdown by default */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 20;
+}
+
+/* Report Button Style */
+#reportButton {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 10px; /* Spacing from the text */
+    background-color: #4CAF50; /* Example button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    /* Existing styles... */
+    top: 263px; /* Adjust this value */
+    left: 880px; /* Adjust this value */
+}
